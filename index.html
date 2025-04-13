@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Birthday Riri! ❤️</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff1493;
+            transform: scale(1.05);
+        }
+        .final-note {
+            font-size: 22px;
+            line-height: 1.6;
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .heart {
+            color: #ff69b4;
+            font-size: 30px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .falling-heart {
+            position: fixed;
+            top: -50px;
+            font-size: 20px;
+            animation: fall linear;
+            z-index: 100;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="content">
+            <h1 id="question">Riri, ready for your birthday surprise?</h1>
+            <button id="nextBtn">Yes! ❤️</button>
+        </div>
+    </div>
+
+    <script>
+        // 5 Romantic Questions for Riri
+        const questions = [
+            "Riri, what's your favorite memory of us?",
+            "What do you love most about us?",
+            "If we could go anywhere right now, where would you pick?",
+            "What's the sweetest thing I've ever done for you?",
+            "Do you believe we're soulmates?"
+        ];
+
+        // Final Birthday Note (Blank Signature)
+        const birthdayNote = `
+            <div class="final-note">
+                <span class="heart">❤️</span>
+                <h2>Happy Birthday, Riri!</h2>
+                <p>From the moment I met you, my life changed forever.</p>
+                <p>Your smile lights up my darkest days,</p>
+                <p>Your laugh is my favorite melody,</p>
+                <p>And your love is my greatest treasure.</p>
+                <p>I promise to cherish you today and every day.</p>
+                <p>Forever yours,</p>
+                <span class="heart">❤️</span>
+            </div>
+            <button onclick="location.reload()">Read Again</button>
+        `;
+
+        let currentQuestion = 0;
+        const contentDiv = document.getElementById('content');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Button click handler
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < questions.length) {
+                document.getElementById('question').textContent = questions[currentQuestion];
+                currentQuestion++;
+                
+                if (currentQuestion === questions.length) {
+                    nextBtn.textContent = "See Your Gift, Riri!";
+                }
+            } else {
+                // Show final note
+                contentDiv.innerHTML = birthdayNote;
+                
+                // Create falling hearts
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = '❤️';
+                        heart.className = 'falling-heart';
+                        heart.style.left = Math.random() * 100 + 'vw';
+                        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                        document.body.appendChild(heart);
+                        
+                        // Remove heart after animation
+                        setTimeout(() => heart.remove(), 5000);
+                    }, i * 200);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
